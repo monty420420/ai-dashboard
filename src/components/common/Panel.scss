@@ -1,0 +1,30 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.panel {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panel__title {
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $color-border;
+  font-size: $font-size-md;
+  font-weight: 600;
+}
+
+.panel__body {
+  flex: 1;
+  padding: $space-5;
+}
+
+// 아직 데이터가 없거나 결과가 비었을 때 패널 안에 보여 주는 안내 문구
+.panel__placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  color: $color-text-subtle;
+  text-align: center;
+}

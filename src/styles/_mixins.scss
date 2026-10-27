@@ -1,0 +1,28 @@
+@use 'variables' as *;
+
+// 데스크톱 우선(max-width) 반응형 믹스인
+@mixin tablet {
+  @media (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+// 흰 배경 + 테두리를 가진 카드형 박스
+@mixin card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+}
+
+// 키보드 포커스가 눈에 보이도록 하는 공통 포커스 링
+@mixin focus-ring {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}

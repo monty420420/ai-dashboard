@@ -1,0 +1,60 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.dashboard__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $space-4;
+  margin: 0;
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.dashboard__charts {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: $space-4;
+
+  @include tablet {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// ---------- StatCard ----------
+.stat-card {
+  @include card;
+  padding: $space-5;
+  // 왼쪽 강조선 색으로 상태를 구분한다. (색만으로 구분하지 않도록 라벨 텍스트도 함께 표시)
+  border-left: 4px solid $color-border;
+
+  &--open {
+    border-left-color: $color-status-open;
+  }
+
+  &--in-progress {
+    border-left-color: $color-status-in-progress;
+  }
+
+  &--resolved {
+    border-left-color: $color-status-resolved;
+  }
+
+  @include mobile {
+    padding: $space-4;
+  }
+}
+
+.stat-card__label {
+  color: $color-text-muted;
+  font-weight: 500;
+}
+
+.stat-card__value {
+  margin: $space-2 0 0;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}

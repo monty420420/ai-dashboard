@@ -1,0 +1,175 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ---------- Layout shell ----------
+.app-layout__body {
+  // 데스크톱에서는 고정 사이드바 너비만큼 본문을 밀어낸다.
+  margin-left: $sidebar-width;
+  min-height: 100vh;
+
+  @include tablet {
+    margin-left: 0;
+  }
+}
+
+.app-layout__main {
+  max-width: $content-max-width;
+  padding: $space-6 $space-8 $space-8;
+
+  &:focus {
+    outline: none;
+  }
+
+  @include mobile {
+    padding: $space-4;
+  }
+}
+
+.app-layout__overlay {
+  display: none;
+
+  @include tablet {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: $z-overlay;
+    background: rgba(15, 20, 30, 0.45);
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: $space-2;
+  left: $space-2;
+  z-index: $z-sidebar + 1;
+  padding: $space-2 $space-4;
+  border-radius: $radius-sm;
+  background: $color-primary;
+  color: #fff;
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
+// ---------- Sidebar ----------
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-sidebar;
+  width: $sidebar-width;
+  display: flex;
+  flex-direction: column;
+  background: $color-sidebar-bg;
+  color: $color-sidebar-text;
+
+  @include tablet {
+    // 닫힌 상태에서는 화면 밖으로 밀고 visibility로 숨겨, 보이지 않는 링크에 Tab 포커스가 가지 않게 한다.
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform 0.2s ease,
+      visibility 0.2s;
+
+    &.is-open {
+      transform: none;
+      visibility: visible;
+    }
+  }
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  height: $header-height;
+  padding: 0 $space-5;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $color-sidebar-text-active;
+}
+
+.sidebar__logo {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: $radius-sm;
+  background: $color-primary;
+  font-size: $font-size-md;
+}
+
+.sidebar__nav {
+  padding: $space-4 $space-3;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li + li {
+    margin-top: $space-1;
+  }
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-2 + 0.125rem $space-3;
+  border-radius: $radius-sm;
+  font-weight: 500;
+
+  &:hover {
+    color: $color-sidebar-text-active;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  &.is-active {
+    color: $color-sidebar-text-active;
+    background: $color-sidebar-item-active;
+  }
+}
+
+// ---------- Header ----------
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-header;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  height: $header-height;
+  padding: 0 $space-8;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+
+  @include mobile {
+    padding: 0 $space-4;
+  }
+}
+
+.header__menu-button {
+  display: none;
+  padding: $space-2;
+  border: 0;
+  border-radius: $radius-sm;
+  background: transparent;
+
+  &:hover {
+    background: $color-bg;
+  }
+
+  @include tablet {
+    display: inline-flex;
+  }
+}
+
+.header__title {
+  font-size: $font-size-lg;
+  font-weight: 700;
+}
